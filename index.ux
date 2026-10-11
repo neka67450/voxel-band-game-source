@@ -1,0 +1,304 @@
+<template>
+  <div class="page">
+    <div class="topbar">
+      <text class="brand">VOXEL WORLD</text>
+      <text class="coords">12, 64, -8</text>
+    </div>
+
+    <div class="scene">
+      <div class="sun"></div>
+      <div class="cloud cloud-a"></div>
+      <div class="cloud cloud-b"></div>
+
+      <div class="far-hill"></div>
+      <div class="far-tree far-tree-a"><div class="trunk"></div><div class="leaves"></div></div>
+      <div class="far-tree far-tree-b"><div class="trunk"></div><div class="leaves"></div></div>
+
+      <div class="hill"></div>
+      <div class="tree tree-a"><div class="trunk"></div><div class="leaves"></div></div>
+      <div class="tree tree-b"><div class="trunk"></div><div class="leaves"></div></div>
+
+      <div class="ground">
+        <div class="grass grass-a"></div>
+        <div class="grass grass-b"></div>
+        <div class="stone stone-a"></div>
+        <div class="stone stone-b"></div>
+      </div>
+      <div class="crosshair"></div>
+    </div>
+
+    <div class="status">
+      <text class="hearts">♥ ♥ ♥</text>
+      <text class="label">{{ message }}</text>
+    </div>
+
+    <div class="hotbar">
+      <div class="slot {{ selectedSlot === 0 ? 'selected' : '' }}" onclick="selectSlot0"><text>⛏</text></div>
+      <div class="slot {{ selectedSlot === 1 ? 'selected' : '' }}" onclick="selectSlot1"><text>▦</text></div>
+      <div class="slot {{ selectedSlot === 2 ? 'selected' : '' }}" onclick="selectSlot2"><text>▧</text></div>
+      <div class="slot {{ selectedSlot === 3 ? 'selected' : '' }}" onclick="selectSlot3"><text>◈</text></div>
+    </div>
+
+    <div class="controls">
+      <div class="control" onclick="moveLeft">‹</div>
+      <div class="control" onclick="mine">⛏</div>
+      <div class="control" onclick="moveRight">›</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    message: "Tap ⛏ to mine",
+    blocks: 0,
+    playerStep: 0,
+    selectedSlot: 0
+  },
+  moveLeft() {
+    this.playerStep = this.playerStep - 1;
+    this.message = "Step: " + this.playerStep;
+  },
+  moveRight() {
+    this.playerStep = this.playerStep + 1;
+    this.message = "Step: " + this.playerStep;
+  },
+  selectSlot0() {
+    this.selectedSlot = 0;
+    this.message = "Selected: Pickaxe";
+  },
+  selectSlot1() {
+    this.selectedSlot = 1;
+    this.message = "Selected: Wood";
+  },
+  selectSlot2() {
+    this.selectedSlot = 2;
+    this.message = "Selected: Dirt";
+  },
+  selectSlot3() {
+    this.selectedSlot = 3;
+    this.message = "Selected: Stone";
+  },
+  mine() {
+    this.blocks = this.blocks + 1;
+    this.message = "Blocks mined: " + this.blocks;
+  }
+}
+</script>
+
+<style>
+.page {
+  width: 100%;
+  height: 100%;
+  background-color: #18232d;
+  flex-direction: column;
+}
+.topbar {
+  height: 34px;
+  padding-left: 7px;
+  padding-right: 7px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #18232d;
+}
+.brand {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+}
+.coords {
+  color: #d5e5ed;
+  font-size: 8px;
+}
+.scene {
+  height: 230px;
+  width: 100%;
+  background-color: #69b9f4;
+  overflow: hidden;
+  position: relative;
+}
+.sun {
+  position: absolute;
+  right: 22px;
+  top: 18px;
+  width: 19px;
+  height: 19px;
+  background-color: #fff1a8;
+}
+.cloud {
+  position: absolute;
+  height: 7px;
+  background-color: #dceeff;
+  opacity: 0.9;
+}
+.cloud-a {
+  top: 32px;
+  left: 17px;
+  width: 36px;
+}
+.cloud-b {
+  top: 47px;
+  right: 4px;
+  width: 27px;
+}
+.far-hill {
+  position: absolute;
+  left: 0;
+  bottom: 44px;
+  width: 100%;
+  height: 82px;
+  background-color: #6c9a64;
+  border-top: 5px solid #80b86b;
+}
+.hill {
+  position: absolute;
+  left: -12px;
+  bottom: 23px;
+  width: 120%;
+  height: 78px;
+  background-color: #4b8c3f;
+  border-top: 7px solid #73b64e;
+}
+.tree, .far-tree {
+  position: absolute;
+}
+.tree-a {
+  left: 17px;
+  bottom: 54px;
+}
+.tree-b {
+  right: 19px;
+  bottom: 58px;
+  transform: scale(0.8);
+}
+.far-tree-a {
+  left: 63px;
+  bottom: 100px;
+  transform: scale(0.65);
+}
+.far-tree-b {
+  right: 56px;
+  bottom: 95px;
+  transform: scale(0.55);
+}
+.trunk {
+  position: absolute;
+  left: 13px;
+  top: 24px;
+  width: 10px;
+  height: 30px;
+  background-color: #79502e;
+}
+.leaves {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px;
+  height: 34px;
+  background-color: #287d38;
+  border: 3px solid #21652e;
+}
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 34px;
+  background-color: #80502d;
+  border-top: 8px solid #65ad3e;
+}
+.grass {
+  position: absolute;
+  top: -5px;
+  height: 5px;
+  width: 15px;
+  background-color: #91d653;
+}
+.grass-a { left: 25px; }
+.grass-b { right: 30px; width: 10px; }
+.stone {
+  position: absolute;
+  top: 10px;
+  width: 17px;
+  height: 16px;
+  background-color: #818d92;
+  border: 2px solid #68777d;
+}
+.stone-a { left: 68px; }
+.stone-b { right: 8px; }
+.crosshair {
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+.status {
+  height: 25px;
+  padding-left: 7px;
+  padding-right: 7px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #202d38;
+}
+.hearts {
+  color: #ff5555;
+  font-size: 12px;
+}
+.label {
+  color: #e4edf2;
+  font-size: 8px;
+}
+.hotbar {
+  height: 37px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #18232d;
+}
+.slot {
+  width: 25px;
+  height: 25px;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-color: #52616a;
+  border: 2px solid #8c9ba2;
+  align-items: center;
+  justify-content: center;
+}
+.slot text {
+  color: #ffffff;
+  font-size: 15px;
+}
+.selected {
+  border-color: #a5ed63;
+  background-color: #304d31;
+}
+.controls {
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #18232d;
+}
+.control {
+  width: 36px;
+  height: 36px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 7px;
+  background-color: #344754;
+  border: 2px solid #6f8490;
+  color: #ffffff;
+  font-size: 21px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+</style>

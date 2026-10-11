@@ -1,0 +1,8 @@
+{
+  "name": "voxel-band-game",
+  "version": "1.0.0",
+  "description": "Lightweight voxel-style game prototype for Xiaomi Vela",
+  "scripts": {
+    "build": "vela build"
+  }
+}

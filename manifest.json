@@ -1,0 +1,14 @@
+{
+  "package": "com.example.voxelbandgame",
+  "name": "Voxel Band Game",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minPlatformVersion": 1,
+  "designWidth": 106,
+  "router": {
+    "entry": "pages/index"
+  },
+  "display": {
+    "titleBar": false
+  }
+}
